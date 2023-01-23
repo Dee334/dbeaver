@@ -148,4 +148,7 @@ public interface DBPProject extends DBPObject, SMAuthSpace, DBAPermissionRealm {
 
     void refreshProject(DBRProgressMonitor monitor);
 
+    boolean resetResourceProperties(@NotNull String resourcePath);
+
+    boolean resetResourcesPropertiesBatch(@NotNull Collection<String> resourcesPaths);
 }
