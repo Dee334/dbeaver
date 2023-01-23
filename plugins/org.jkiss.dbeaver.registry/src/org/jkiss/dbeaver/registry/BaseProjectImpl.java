@@ -413,6 +413,7 @@ public abstract class BaseProjectImpl implements DBPProject {
 
     }
 
+    @Override
     public boolean resetResourceProperties(@NotNull String resourcePath) {
         loadMetadata();
         resourcePath = normalizeResourcePath(resourcePath);
@@ -424,6 +425,24 @@ public abstract class BaseProjectImpl implements DBPProject {
             flushMetadata();
         }
         return hadProperties;
+    }
+
+    @Override
+    public boolean resetResourcesPropertiesBatch(@NotNull Collection<String> resourcesPaths) {
+        loadMetadata();
+        boolean propertiesChanged = false;
+        synchronized (metadataSync) {
+            for (var resourcePath : resourcesPaths) {
+                final var removedProperties = resourceProperties.remove(normalizeResourcePath(resourcePath));
+                if (removedProperties != null) {
+                    propertiesChanged = true;
+                }
+            }
+        }
+        if (propertiesChanged) {
+            flushMetadata(false);
+        }
+        return propertiesChanged;
     }
 
     @NotNull
