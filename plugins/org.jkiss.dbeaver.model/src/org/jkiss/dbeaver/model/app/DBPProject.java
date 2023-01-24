@@ -150,5 +150,5 @@ public interface DBPProject extends DBPObject, SMAuthSpace, DBAPermissionRealm {
 
     boolean resetResourceProperties(@NotNull String resourcePath);
 
-    boolean resetResourcesPropertiesBatch(@NotNull Collection<String> resourcesPaths);
+    boolean resetResourcesPropertiesBatch(@NotNull Iterable<String> resourcesPaths);
 }
